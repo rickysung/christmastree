@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>
+We wish you a merry christmas
+</title>
+<script src="js/treeobject.js"></script>
+<script src="js/treedraw.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript">
+	function keepfullscreen()
+	{
+		canvas = document.getElementById('xtree');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	}
+</script>
+<style>
+body{
+	background-color : #050510;
+margin : 0;
+}
+</style>
+</head>
+<body onload="keepfullscreen();initTree(window.innerWidth, window.innerHeight);" onresize="keepfullscreen();">
+	<canvas id="xtree">
+
+</body>
+</html>
