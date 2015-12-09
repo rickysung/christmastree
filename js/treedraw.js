@@ -209,6 +209,8 @@ function drawSnow(name, snowPoint, fob)
 {
 	var i;
 	var snowSize = 2*magScale;
+    if(snowSize<1)
+        snowSize = 1;
 	var canvas = document.getElementById(name).getContext('2d');
 	canvas.fillStyle = snowColor;
 	for(i=0 ; i<snowPoint.length ; i++)
