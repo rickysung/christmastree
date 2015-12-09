@@ -1,7 +1,10 @@
 var branchColor="#117733";
-var leafColor="#EEEEEE";
+var leafColor="#117733";
 var snowColor ="#FFFFFF";
-var starColor = "#FFFF33"
+var starColor = "#FFFF33";
+var ornColor = "#113311";
+var ornColor2 = "#AA1111";
+var ornColor3 = "#FFAA00";
 var snowNum = 1500;
 var snowIndex = 0;
 function getRandom(s,f)
@@ -26,10 +29,15 @@ function rotateZ(p,a)
 }
 function SnowBall()
 {
-	var rad = getRandom(width*0.05,width*0.3);
-	var t= getRandom(0,360);
-	this.melt = getRandom(30,300);
-	this.point = new Point3D(rad * Math.cos(t*Math.PI/180), getRandom(-treeHeight*3,0), rad* Math.sin(t*Math.PI/180));
+	var rad = getRandom(width*0.05, (height * 0.8)>width?width/2:(height*0.4) )/magScale;
+    var t= getRandom(0,360);
+	this.melt = getRandom(300,450);
+	this.point = new Point3D(rad * Math.cos(t*Math.PI/180), getRandom(-treeheight*3,0), rad* Math.sin(t*Math.PI/180));
+}
+function Ornament_Ball(x,y,z)
+{
+    this.rad = getRandom(6,12);
+    this.point = new Point3D(x,y,z);
 }
 function Snow()
 {
@@ -58,7 +66,7 @@ function Star()
 	s=s.concat(new Point3D(0,0,-7));
 	for(i=0 ; i<17 ; i++)
 	{
-		s[i].Y -= treeHeight;
+		s[i].Y -= treeheight-10;
 	}
 	return s;
 }

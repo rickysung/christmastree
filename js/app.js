@@ -1,16 +1,29 @@
-var depth = 4;
-var mainpole;
-var treePoints;
-var snowPoint;
-var starPoint;
-var height;
-var width;
+var trees;
 var magScale = 1;
+var depth = 333;
+var width;
+var height;
+var treeheight;
 function createBranch(level, parentTree)
 {
 	if(level>depth || parentTree.height<50)
 	{
-		parentTree.body.type = 1;
+		var tmp = getRandom(0,10000);
+        if(tmp%200<10)
+        {
+            parentTree.body.type = 2;
+        }
+        else if(tmp%200<17)
+        {
+            parentTree.body.type = 3;
+        }
+        else if(tmp%200<50)
+        {
+            parentTree.body.type = 4;
+        }
+        else
+            parentTree.body.type = 1;
+
 		parentTree.childNum = 0;
 		return 1;
 	}
@@ -24,10 +37,10 @@ function createBranch(level, parentTree)
 		{
 			for(i=0 ; i<parentTree.childNum ; i++)
 			{
-				loc = i*70 / (parentTree.childNum + 1) + 15;
-				h = parentTree.height * (loc+level*20 ) /210 ;
-				parentTree.childs[i] = new Tree(h, loc, getRandom(30,40) + loc / 3, 90 * (level %2) + (i%2) * 180 + (0.5+(-1)*(i%2))*40,getRandom(10,15));
-				parentTree.childs[i].body = new Branch(new Point3D(0,(-1.7 * h + level*5),0),new Point3D(-(20*(2*h + level * 10)/mainpole.height),0,0), new Point3D((20*(2*h + level * 10)/mainpole.height),0,0));
+				loc = i*70 / (parentTree.childNum + 1) + 10;
+				h = parentTree.height * (loc+level*20 ) / 210 ;
+				parentTree.childs[i] = new Tree(h, loc, getRandom(30,40) + loc / 3, 90 * (level %2) + (i%2) * 180 + (0.5+(-1)*(i%2))*40, getRandom(10,15));
+				parentTree.childs[i].body = new Branch(new Point3D(0,(-1.7 * h + level*5),0),new Point3D(-(15*(2*h + level * 10)/treeheight),0,0), new Point3D((15*(2*h + level * 10)/treeheight),0,0));
 				sum+=createBranch(level+1, parentTree.childs[i]);
 			}
 			parentTree.wholeChildNum = sum;
@@ -37,10 +50,10 @@ function createBranch(level, parentTree)
 		{
 			for(i =0; i<parentTree.childNum ; i++)
 			{
-				loc = (i/3)*250 / (parentTree.childNum+1) + 10;
+				loc = (i/3)*250 / (parentTree.childNum+1) + 15;
 				h = parentTree.height * loc / 240;
-				parentTree.childs[i] = new Tree(h, loc, getRandom(30,40) + loc / 3, i*100, getRandom(10,14));
-				parentTree.childs[i].body = new Branch(new Point3D(0, (-1.2 * h),0),new Point3D(-(20*(2*h + level * 30)/mainpole.height),0,0),new Point3D((20*(2*h + level * 30)/mainpole.height),0,0));
+				parentTree.childs[i] = new Tree(h, loc, getRandom(30,40) + loc / 3, i*100, getRandom(20,25));
+				parentTree.childs[i].body = new Branch(new Point3D(0, (-1.2 * h),0),new Point3D(-(20*(2*h + level * 30)/treeheight),0,0),new Point3D((20*(2*h + level * 30)/treeheight),0,0));
 				sum+= createBranch(level+1, parentTree.childs[i]);
 			}
 			parentTree.wholeChildNum = sum;
@@ -79,25 +92,33 @@ function locateBranch(level, parentTree)
 		return allBranch;
 	}
 }
-function initTree(w, h)
+function initTree(w, h, n)
 {
-	width = w;
-	height = h;
-	if(height<600)
-		treeHeight = 850;
-	else if(height<1200)
-		treeHeight = 800;
+	this.depth = 4;
+	this.height=h;
+	this.width=w;
+	this.name=n;
+	if(this.height<600)
+		this.treeHeight = 850;
+	else if(this.height<1200)
+		this.treeHeight = 800;
 	else
-		treeHeight = 750;
-//	treeHeight = getRandom(600,800); 
-	magScale = height*0.8/treeHeight;
-	mainpole = new Tree(treeHeight, 50, 90, 0, 30);
-	mainpole.body = new Branch(new Point3D(0, -treeHeight, 0),
+		this.treeHeight = 750;
+    treeheight = this.treeHeight;
+    width = w;
+    height = h;
+	magScale = this.height*0.8/this.treeHeight;
+	this.mainpole = new Tree(this.treeHeight, 50, 90, 0, 25);
+	this.mainpole.body = new Branch(new Point3D(0, -this.treeHeight, 0),
 					 				new Point3D(-20, 0, 0),
 									new Point3D(20, 0, 0));
-	createBranch(0,mainpole);
-	treePoints = locateBranch(0,mainpole);
-	starPoint = new Star();
-	snowPoint = new Snow();
-	window.requestAnimationFrame(draw);
+	createBranch(0, this.mainpole);
+	this.treePoints = locateBranch(0, this.mainpole);
+	this.starPoint = new Star();
+	this.snowPoint = new Snow();
+}
+function init(w, h, n)
+{
+    trees = new initTree(w, h, n);
+    window.requestAnimationFrame(draw);
 }
