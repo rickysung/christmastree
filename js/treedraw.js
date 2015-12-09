@@ -7,7 +7,7 @@ var interval = 1000/fps;
 var ballSize1 = 6;
 var ballSize2 = 8;
 var ballSize3 = 2;
-function drawTree(name, treePoints){
+function drawBranch(name, treePoints){
 	var i;
 	var br;
 	var canvas = document.getElementById(name).getContext('2d');
@@ -257,7 +257,7 @@ function initCanvas(name)
 	var canvas = document.getElementById(name).getContext('2d');
 	canvas.clearRect(0,0,trees.width, trees.height);
 }
-function draw()
+function drawTreeToScreen()
 {
     var delta;
     now = Date.now(); 
@@ -268,7 +268,7 @@ function draw()
 
     initCanvas(trees.name);
 	drawSnow(trees.name, trees.snowPoint, true);
-	drawTree(trees.name, trees.treePoints);
+	drawBranch(trees.name, trees.treePoints);
 	drawStar(trees.name, trees.starPoint);
 	drawSnow(trees.name, trees.snowPoint, false);
 	
@@ -276,5 +276,5 @@ function draw()
 	rotateTree(trees.treePoints);
 	rotateStar(trees.starPoint);
 	rotateSnow(trees.snowPoint);
-	window.requestAnimationFrame(draw);
+	window.requestAnimationFrame(drawTreeToScreen);
 }	

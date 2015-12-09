@@ -118,5 +118,5 @@ function initTree(w, h, n)
 function startTree(w, h, n)
 {
     trees = new initTree(w, h, n);
-    window.requestAnimationFrame(draw);
+    window.requestAnimationFrame(drawTreeToScreen);
 }
