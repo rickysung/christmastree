@@ -98,12 +98,10 @@ function initTree(w, h, n)
 	this.height=h;
 	this.width=w;
 	this.name=n;
-	if(this.height<600)
-		this.treeHeight = 850;
-	else if(this.height<1200)
-		this.treeHeight = 800;
-	else
-		this.treeHeight = 750;
+    if(h<500)
+        this.treeHeight = 500;
+    else
+    	this.treeHeight = 750;
     treeheight = this.treeHeight;
     width = w;
     height = h;
