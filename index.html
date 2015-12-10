@@ -2,9 +2,7 @@
 <head>
 <title>
 Jingle bells jingle bells, Jingle all the way</title>
-<script src="js/app.js"></script>
-<script src="js/treeobject.js"></script>
-<script src="js/treedraw.js"></script>
+<script src="js/xtree.js"></script>
 <script type="text/javascript">
 	function keepfullscreen()
 	{
@@ -20,7 +18,7 @@ margin : 0;
 }
 </style>
 </head>
-<body onload="keepfullscreen();startTree(window.innerWidth, window.innerHeight,'xtree');" onresize="keepfullscreen();">
+<body onload="keepfullscreen();tmp = new XTREE(); tmp.startTree(window.innerWidth, window.innerHeight,'xtree');" onresize="keepfullscreen();">
 	<canvas id="xtree">
 
 </body>
