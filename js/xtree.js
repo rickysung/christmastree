@@ -1,4 +1,4 @@
-XTREE = function(){
+var XTREE = (function(ns){
     var trees;
     var magScale = 1;
     var depth = 2;
@@ -26,11 +26,12 @@ XTREE = function(){
     var ballSize1 = 6;
     var ballSize2 = 5;
     var ballSize3 = 2;
-    getRandom = function(s,f)
+
+    function getRandom(s,f)
     {
         return Math.floor((f-s) * Math.random() + s);
     }
-    Point3D = function(x, y, z)
+    function Point3D(x, y, z)
     {
         var ab = 5000*magScale;
         this.X = x;
@@ -39,26 +40,26 @@ XTREE = function(){
         this.FlatX = function () {return ab * this.X*magScale / (ab+this.Z*magScale)+width/2 };
         this.FlatY = function () {return ab * (this.Y*magScale+height*0.8) / (ab+this.Z*magScale) + height*0.1 };
     }
-    rotateZ = function(p,a)
+    function rotateZ(p,a)
     {
         var tx, ty;
         tx = Math.cos(a*Math.PI/180) * p.X + Math.sin(a*Math.PI/180) * p.Y;
         ty = -Math.sin(a*Math.PI/180) * p.X + Math.cos(a*Math.PI/180) * p.Y;
         return new Point3D(tx,ty,p.Z);
     }
-    SnowBall = function()
+    function SnowBall()
     {
         var rad = getRandom(width*0.05, (height * 0.8)>width?width/2:(height*0.4) )/magScale;
         var t= getRandom(0,360);
         this.melt = getRandom(300,450);
         this.point = new Point3D(rad * Math.cos(t*Math.PI/180), getRandom(-treeheight*3,0), rad* Math.sin(t*Math.PI/180));
     }
-    Ornament_Ball = function(x,y,z)
+    function Ornament_Ball(x,y,z)
     {
         this.rad = getRandom(6,12);
         this.point = new Point3D(x,y,z);
     }
-    Snow = function()
+    function Snow()
     {
         var s = [];
         var i;
@@ -68,7 +69,7 @@ XTREE = function(){
         }
         return s;
     }
-    Star = function()
+    function Star()
     {
         var s = [];
         s=s.concat(new Point3D(0, -25, 0));
@@ -89,7 +90,7 @@ XTREE = function(){
         }
         return s;
     }
-    Branch = function(head, tail, tail2)
+    function Branch(head, tail, tail2)
     {
         this.branchPoints = [head, tail, tail2];
         this.type = 0; //brach : 0 leaf : 1 leaf2 : 2
@@ -117,7 +118,7 @@ XTREE = function(){
             }
         };
     }
-    Tree = function(h, z, t, p, n)
+    function Tree(h, z, t, p, n)
     {
         this.body;
         this.z = z;
@@ -129,7 +130,7 @@ XTREE = function(){
         this.childNum = n;
     }
 
-    drawBranch = function(name, treePoints){
+    function drawBranch(name, treePoints){
         var i;
         var br;
         var canvas = document.getElementById(name).getContext('2d');
@@ -320,7 +321,7 @@ XTREE = function(){
             }
         }
     }
-    drawStar = function(name, starPoint)
+    function drawStar(name, starPoint)
     {
         var i;
         var s, f;
@@ -369,7 +370,7 @@ XTREE = function(){
             canvas.fill(path);
         }
     }
-    dropSnow = function(snowPoint)
+    function dropSnow(snowPoint)
     {
         for(i=0 ; i<snowPoint.length ; i++)
         {
@@ -386,7 +387,7 @@ XTREE = function(){
             }
         }
     }
-    drawSnow = function(name, snowPoint, fob)
+    function drawSnow(name, snowPoint, fob)
     {
         var i;
         var snowSize = 2*magScale;
@@ -402,7 +403,7 @@ XTREE = function(){
                 canvas.fillRect(snowPoint[i].point.FlatX(),snowPoint[i].point.FlatY(),snowSize,snowSize);
         }
     }
-    rotateSnow = function(snowPoint)
+    function rotateSnow(snowPoint)
     {
         var i;
         var a = angleSpeed * Math.PI/180;
@@ -413,7 +414,7 @@ XTREE = function(){
             snowPoint[i].point = new Point3D(tx, snowPoint[i].point.Y, tz);
         }
     }
-    rotateStar = function(starPoint)
+    function rotateStar(starPoint)
     {
         var i;
         var tx, tz;
@@ -425,7 +426,7 @@ XTREE = function(){
             starPoint[i] = new Point3D(tx, starPoint[i].Y, tz);
         }
     }
-    rotateTree = function(treePoints)
+    function rotateTree(treePoints)
     {
         var i;
         for(i=0 ; i<treePoints.length - 1; i++)
@@ -433,12 +434,12 @@ XTREE = function(){
             treePoints[i].rotateBranch(new Point3D(0,0,0), 0, angleSpeed);
         }
     }
-    initCanvas = function(name)
+    function initCanvas(name)
     {
         var canvas = document.getElementById(name).getContext('2d');
         canvas.clearRect(0,0,trees.width, trees.height);
     }
-    drawTreeToScreen = function()
+    function drawTreeToScreen()
     {
         var delta;
         now = Date.now(); 
@@ -459,7 +460,7 @@ XTREE = function(){
         rotateSnow(trees.snowPoint);
         window.requestAnimationFrame(drawTreeToScreen);
     }
-    var createBranch = function(level, parentTree)
+    function createBranch(level, parentTree)
     {
         if(level>depth || parentTree.height<45)
         {
@@ -525,7 +526,7 @@ XTREE = function(){
             }
         }
     }
-    var locateBranch = function(level, parentTree)
+    function locateBranch(level, parentTree)
     {
         if(level > depth)
         {
@@ -556,7 +557,7 @@ XTREE = function(){
             return allBranch;
         }
     }
-    var initTree = function(w, h, n)
+    function initTree(w, h, n)
     {
         this.depth = 4;
         this.height=h;
@@ -579,9 +580,10 @@ XTREE = function(){
         this.starPoint = new Star();
         this.snowPoint = new Snow();
     }
-    this.startTree = function(w, h, n)
+    ns.startTree = function(w, h, n)
     {
         trees = new initTree(w, h, n);
         window.requestAnimationFrame(drawTreeToScreen);
     }
-}
+    return ns;
+})(XTREE || {});
