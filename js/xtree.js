@@ -1,7 +1,7 @@
 XTREE = function(){
     var trees;
     var magScale = 1;
-    var depth = 3;
+    var depth = 2;
     var width;
     var height;
     var treeheight;
@@ -445,7 +445,7 @@ XTREE = function(){
         delta = now - than;
         than = now;
         cof = delta / interval;
-        angleSpeed = 0.03 * cof;
+        angleSpeed = 0.07 * cof;
 
         initCanvas(trees.name);
         drawSnow(trees.name, trees.snowPoint, true);
@@ -502,7 +502,8 @@ XTREE = function(){
                 {
                     loc = i*70 / (parentTree.childNum + 1) + 10;
                     h = parentTree.height * (loc+level*20 ) / 210 ;
-                    parentTree.childs[i] = new Tree(h, loc, getRandom(30,40) + loc / 3, 90 * (level %2) + (i%2) * 180 + (0.5+(-1)*(i%2))*40, getRandom(10,15));
+                    parentTree.childs[i] = new Tree(h, loc, getRandom(30,40) + loc / 3, 90 * (level %2) + (i%2) * 180 +
+                    (0.5+(-1)*(i%2))*40, getRandom(8,10));
                     parentTree.childs[i].body = new Branch(new Point3D(0,(-1.7 * h + level*5),0), new Point3D(-(15*(2*h + level * 10)/treeheight),0,0), new Point3D((15*(2*h + level * 10)/treeheight),0,0));
                     sum += createBranch(level+1, parentTree.childs[i]);
                 }
