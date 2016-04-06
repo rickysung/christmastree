@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>April 27 2016</title>
+<script src="js/xtree.js"></script>
+<script type="text/javascript">
+	function keepfullscreen()
+	{
+		canvas = document.getElementById('xtree');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	}
+</script>
+
+<style>
+body{
+	background-color : #252529;
+    margin : 0;
+    position : absolute;
+}
+canvas{
+    position : absolute;
+}
+h6{
+    color : white;
+}
+</style>
+</head>
+<body onload="keepfullscreen();XTREE.startTree(window.innerWidth, window.innerHeight,'xtree');" onresize="keepfullscreen();">
+<canvas id="xtree" ></canvas>
+
+</body>
+
+</html>
