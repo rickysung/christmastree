@@ -6,7 +6,7 @@ var XTREE = (function(ns){
     var height;
     var treeheight;
     var branchColor = "#19050A";
-    var leafColor = "#bc8f8f";
+    var leafColor = "#bcffff";
     var leafColor2 = "#ffb6c1";
     var snowColor = "#ffb6c1";
     var snowNum = 300;
