@@ -6,8 +6,8 @@ var XTREE = (function(ns){
     var height;
     var treeheight;
     var branchColor = "#19050A";
-    var leafColor = "#bcffff";
-    var leafColor2 = "#ffb6c1";
+    var leafColor = "#bc8888";
+    var leafColor2 = "#ffeeee";
     var snowColor = "#ffb6c1";
     var snowNum = 300;
    var rotateOrigin = new Point3D(0,0,0);
